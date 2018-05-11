@@ -1,21 +1,21 @@
 package ru.testtask.aventika.aventicatesttask;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,47 +23,73 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
-    private EditText mBookInput;
-    private TextView mTitleText;
-    private TextView mAuthorText;
-    private Button mGoButton;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    private BookResultsAdapter mBookResultsAdapter;
+    private ArrayList<BookResult> mBookResults;
+    private String mQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mBookResults = new ArrayList<>();
         mToolbar = findViewById(R.id.toolbar_main);
         mToolbar.setTitle(R.string.app_name);
         setSupportActionBar(mToolbar);
 
-        mBookInput = findViewById(R.id.edit_query);
-        mTitleText = findViewById(R.id.titleText);
-        mAuthorText = findViewById(R.id.authorText);
-        mGoButton = findViewById(R.id.go);
         mSwipeRefreshLayout = findViewById(R.id.swipe);
+        mRecyclerView = findViewById(R.id.books_list);
+        mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mBookResultsAdapter = new BookResultsAdapter(mBookResults);
+        mRecyclerView.setAdapter(mBookResultsAdapter);
 
-        mGoButton.setOnClickListener(new View.OnClickListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
-                String query = mBookInput.getText().toString();
-                if(!query.isEmpty()){
-                    new FetchBookTask(query, MainActivity.this).execute();
+            public void onRefresh() {
+                if(!mQuery.isEmpty()){
+                    updateItems(mQuery);
                 }
             }
         });
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_button, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(!query.isEmpty()){
+                    mQuery = query;
+                    updateItems(mQuery);
+                }
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
+    }
+
+    private void updateItems(String query){
+        new FetchBookTask(query, MainActivity.this).execute();
     }
 
     private static class FetchBookTask extends AsyncTask<Void, Void, String>{
@@ -73,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             mQueryString = query;
             mReference = new WeakReference<>(reference);
         }
+
 
         @Override
         protected void onPreExecute() {
@@ -84,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String string) {
             super.onPostExecute(string);
+            ArrayList<BookResult> bookResults = new ArrayList<>();
             MainActivity activity = mReference.get();
             activity.mSwipeRefreshLayout.setRefreshing(false);
             try{
@@ -93,35 +121,34 @@ public class MainActivity extends AppCompatActivity {
                 int i = 0;
                 String title = null;
                 String authors = null;
+                String selfLink = null;
+                String smallThumbNail = null;
                 while (i < itemsArray.length() || (authors == null && title == null)) {
 
                     JSONObject book = itemsArray.getJSONObject(i);
                     JSONObject volumeInfo = book.getJSONObject("volumeInfo");
-
-
+                    JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
                     try {
                         title = volumeInfo.getString("title");
                         authors = volumeInfo.getString("authors");
+                        smallThumbNail = imageLinks.getString("thumbnail");
+                        selfLink = book.getString("selfLink");
                     } catch (Exception e){
                         e.printStackTrace();
                     }
-
+                    if (title != null && authors != null && selfLink != null && smallThumbNail != null){
+                        BookResult result = new BookResult(title, authors, smallThumbNail, selfLink);
+                        bookResults.add(result);
+                    }
                     i++;
-                }
-
-                if (title != null && authors != null){
-                    activity.mTitleText.setText(title);
-                    activity.mAuthorText.setText(authors);
-                    activity.mBookInput.setText("");
-                } else {
-
-                    activity.mTitleText.setText("No sir");
-                    activity.mAuthorText.setText("No sir");
                 }
 
             }catch (JSONException e){
                 e.printStackTrace();
             }
+
+            activity.mBookResultsAdapter.setBooksResults(bookResults);
+            activity.mBookResultsAdapter.notifyDataSetChanged();
         }
 
         @Override

@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">AventicaTestTask</string>
     <string name="search">Search</string>
+
+    <!--placeholders, not for translate-->
+    <string name="title_pl">Leather from the Raw Material to the Finished Product</string>
+    <string name="author_pl">Adcock K. J.</string>
+    <!-- -->
+
 </resources>
