@@ -3,7 +3,7 @@
     <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimaryDetail</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDetail</item>
-        <item name="colorAccent">@color/colorPrimaryDetail</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>

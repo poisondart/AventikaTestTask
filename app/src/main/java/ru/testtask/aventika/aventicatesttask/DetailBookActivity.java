@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ public class DetailBookActivity extends AppCompatActivity {
     private ImageView mImageView;
     private TextView mTitleView, mAuthorView, mPublisherView, mPublishDateView,
     mDescView, mPageCountView, mCategory;
+    private ProgressBar mProgressBar;
     private String mSelfQuery;
     private String mFullThumbnailLink;
 
@@ -45,6 +47,7 @@ public class DetailBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_book);
 
         mImageView = findViewById(R.id.main_image);
+        mProgressBar = findViewById(R.id.detail_progressbar);
         mTitleView = findViewById(R.id.fullTitleView);
         mAuthorView = findViewById(R.id.fullAuthorView);
         mPublisherView = findViewById(R.id.publisherTextView);
@@ -77,15 +80,14 @@ public class DetailBookActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //DetailBookActivity activity = mReference.get();
-            //activity.mSwipeRefreshLayout.setRefreshing(true);
+            DetailBookActivity activity = mReference.get();
+            activity.mProgressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected void onPostExecute(String string) {
             super.onPostExecute(string);
             DetailBookActivity activity = mReference.get();
-            //activity.mSwipeRefreshLayout.setRefreshing(false);
             try{
                 JSONObject jsonObject = new JSONObject(string);
                 int i = 0;
@@ -121,6 +123,8 @@ public class DetailBookActivity extends AppCompatActivity {
             }catch (JSONException e){
                 e.printStackTrace();
             }
+
+            activity.mProgressBar.setVisibility(ProgressBar.GONE);
         }
 
         @Override
