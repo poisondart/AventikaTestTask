@@ -2,7 +2,8 @@
     <string name="app_name">AventicaTestTask</string>
     <string name="search">Search</string>
     <string name="searchActivityTitle">Поиск книг</string>
-
+    <string name="searchTip">Нажмите на иконку лупы в верхнем правом углу, и введите название
+    нужной книги, приложение выдаст до 15 результатов поиска.</string>
     <!--Просто тестовые надписи-->
     <string name="title_pl">Leather from the Raw Material to the Finished Product</string>
     <string name="author_pl">Adcock K. J.</string>

@@ -10,4 +10,16 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="DetailInfoCardViewStyle">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
 </resources>

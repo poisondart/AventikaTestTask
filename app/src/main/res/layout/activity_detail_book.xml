@@ -53,13 +53,7 @@
                 android:layout_below="@+id/detail_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorBlack"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="6dp"
+                style="@style/DetailTitleTextViewStyle"
                 tools:text="@string/title_pl"/>
             <TextView
                 android:id="@+id/fullAuthorView"
@@ -67,56 +61,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="@string/author_pl"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="6dp"/>
+                style="@style/DetailAuthorTextViewStyle"/>
             <TextView
                 android:id="@+id/publisherTextView"
                 android:layout_below="@+id/fullAuthorView"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/InfoCardViewStyle"
-                tools:text="@string/publisher_pl"
-                android:textSize="18sp"/>
+                style="@style/DetailInfoCardViewStyle"
+                tools:text="@string/publisher_pl"/>
             <TextView
                 android:id="@+id/publisherDateTextView"
                 android:layout_below="@+id/publisherTextView"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/InfoCardViewStyle"
-                tools:text="@string/publisherDate_pl"
-                android:textSize="18sp"/>
+                style="@style/DetailInfoCardViewStyle"
+                tools:text="@string/publisherDate_pl"/>
             <TextView
                 android:id="@+id/descTextView"
                 android:layout_below="@+id/publisherDateTextView"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/InfoCardViewStyle"
-                tools:text="@string/desc_pl"
-                android:textSize="18sp"/>
+                style="@style/DetailInfoCardViewStyle"
+                tools:text="@string/desc_pl"/>
             <TextView
                 android:id="@+id/pageTextView"
                 android:layout_below="@+id/descTextView"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/InfoCardViewStyle"
-                tools:text="@string/pages_pl"
-                android:textSize="18sp"/>
+                style="@style/DetailInfoCardViewStyle"
+                tools:text="@string/pages_pl"/>
             <TextView
                 android:id="@+id/categoryView"
                 android:layout_below="@+id/pageTextView"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/InfoCardViewStyle"
-                tools:text="@string/category_pl"
-                android:textSize="18sp"/>
+                style="@style/DetailInfoCardViewStyle"
+                tools:text="@string/category_pl"/>
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

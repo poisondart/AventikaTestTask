@@ -14,12 +14,74 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
-    <style name="InfoCardViewStyle">
+    <!-- Стили элементов в активити просмотра выбранной книги-->
+
+    <style name="DetailInfoCardViewStyle">
         <item name="android:background">@color/colorWhite</item>
         <item name="android:padding">6dp</item>
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="DetailAuthorTextViewStyle">
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DetailTitleTextViewStyle">
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Стили элементов карточек найденных книг-->
+
+    <style name="ImageViewCard">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="LinearLayoutCard">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="BookTitleCard">
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="BookAuthorsCard">
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

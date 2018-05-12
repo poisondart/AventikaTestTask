@@ -52,7 +52,6 @@ public class BookResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mAuthorsView = itemView.findViewById(R.id.bookAuthorsTextView);
             mImageView = itemView.findViewById(R.id.thumnailImageView);
             itemView.setOnClickListener(this);
-            mImageView.setOnClickListener(this);
         }
 
         @Override

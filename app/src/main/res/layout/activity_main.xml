@@ -26,6 +26,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground">
+
+        <LinearLayout
+            android:id="@+id/search_tip_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:background="@color/colorWhite"
+            android:elevation="4dp"
+            android:layout_margin="12dp"
+            android:padding="12dp">
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:src="@drawable/ic_search_icon"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/searchTip"
+                android:textSize="18sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/books_list"
             android:layout_width="match_parent"

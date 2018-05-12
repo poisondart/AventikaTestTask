@@ -11,7 +11,9 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
+    private LinearLayout mSearchTipView;
     private BookResultsAdapter mBookResultsAdapter;
     private ArrayList<BookResult> mBookResults;
     private String mQuery;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         mSwipeRefreshLayout = findViewById(R.id.swipe);
         mRecyclerView = findViewById(R.id.books_list);
+        mSearchTipView = findViewById(R.id.search_tip_view);
         mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mBookResultsAdapter = new BookResultsAdapter(mBookResults);
@@ -101,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
             MainActivity activity = mReference.get();
             activity.mSwipeRefreshLayout.setRefreshing(true);
+            activity.mSearchTipView.setVisibility(View.INVISIBLE);
         }
 
         @Override
