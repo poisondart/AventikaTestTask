@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                  android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailBookActivity"
-            android:theme="@style/DetailTheme">
+                  android:configChanges="orientation|screenSize|keyboardHidden"
+                  android:theme="@style/DetailTheme">
         </activity>
     </application>
 

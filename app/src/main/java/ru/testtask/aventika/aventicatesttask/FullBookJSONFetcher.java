@@ -1,6 +1,8 @@
 package ru.testtask.aventika.aventicatesttask;
 
 import android.net.Uri;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -81,6 +83,7 @@ public class FullBookJSONFetcher implements JSONFetcher{
             String desc = null;
             String pages = null;
             String category = null;
+            JSONArray catsJSONArray;
             String largeThumbnail = null;
             JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
             JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
@@ -89,7 +92,8 @@ public class FullBookJSONFetcher implements JSONFetcher{
                 publishDate = volumeInfo.getString("publishedDate");
                 desc = volumeInfo.getString("description");
                 pages = volumeInfo.getString("pageCount");
-                category = volumeInfo.getString("categories");
+                catsJSONArray = volumeInfo.getJSONArray("categories");
+                category = BooksJSONFetcher.JSONArrayToString(catsJSONArray);
                 largeThumbnail = imageLinks.getString("medium");
             } catch (Exception e){
                 e.printStackTrace();

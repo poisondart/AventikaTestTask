@@ -20,6 +20,17 @@ public class BooksJSONFetcher implements JSONFetcher{
         mBookResults = new ArrayList<>();
     }
 
+    public static String JSONArrayToString(JSONArray jsonArray) throws JSONException{
+        StringBuilder builder = new StringBuilder();
+        for(int a =  0; a < jsonArray.length(); a++){
+            builder.append(jsonArray.get(a).toString());
+            if(a != jsonArray.length() - 1){
+                builder.append(", ");
+            }
+        }
+        return builder.toString();
+    }
+
     public ArrayList<BookResult> getBookResults() {
         return mBookResults;
     }
@@ -88,6 +99,7 @@ public class BooksJSONFetcher implements JSONFetcher{
 
             int i = 0;
             String title = null;
+            JSONArray authorsJSONArray;
             String authors = null;
             String selfLink = null;
             String smallThumbNail = null;
@@ -98,7 +110,8 @@ public class BooksJSONFetcher implements JSONFetcher{
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
                 try {
                     title = volumeInfo.getString("title");
-                    authors = volumeInfo.getString("authors");
+                    authorsJSONArray = volumeInfo.getJSONArray("authors");
+                    authors = JSONArrayToString(authorsJSONArray);
                     smallThumbNail = imageLinks.getString("thumbnail");
                     selfLink = book.getString("selfLink");
                 } catch (Exception e){

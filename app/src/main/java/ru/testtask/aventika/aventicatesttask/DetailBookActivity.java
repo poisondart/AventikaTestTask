@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -105,7 +107,8 @@ public class DetailBookActivity extends AppCompatActivity {
 
                 activity.mPublisherView.setText(activity.getString(R.string.publisher, fullBook.getPublisher()));
                 activity.mPublishDateView.setText(activity.getString(R.string.publisherDate, fullBook.getPublishDate()));
-                activity.mDescView.setText(fullBook.getDesc());
+                Spanned spanned = Html.fromHtml(fullBook.getDesc());
+                activity.mDescView.setText(spanned);
                 activity.mPageCountView.setText(activity.getString(R.string.pageCount, fullBook.getPageCount()));
                 activity.mCategory.setText(activity.getString(R.string.category, fullBook.getCategory()));
                 GlideApp.with(activity)
