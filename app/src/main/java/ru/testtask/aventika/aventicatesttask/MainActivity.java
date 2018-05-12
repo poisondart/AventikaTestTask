@@ -1,6 +1,8 @@
 package ru.testtask.aventika.aventicatesttask;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -82,11 +85,33 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mBookResultsAdapter.clearBooks();
+                mBookResultsAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
         return true;
     }
 
     private void updateItems(String query){
-        new FetchBookTask(query, MainActivity.this).execute();
+        if(isOnline()){
+            new FetchBookTask(query, MainActivity.this).execute();
+        }else{
+            Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     private static class FetchBookTask extends AsyncTask<Void, Void, String>{
@@ -112,10 +137,16 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String string) {
             super.onPostExecute(string);
             MainActivity activity = mReference.get();
+            if(string == null){
+                Toast.makeText(activity, R.string.no_network, Toast.LENGTH_LONG).show();
+            }else{
+                mBooksJSONFetcher.parseResults(string);
+                ArrayList<BookResult> results = mBooksJSONFetcher.getBookResults();
+                if(results.size() == 0) Toast.makeText(activity, R.string.no_results, Toast.LENGTH_LONG).show();
+                activity.mBookResultsAdapter.setBooksResults(mBooksJSONFetcher.getBookResults());
+                activity.mBookResultsAdapter.notifyDataSetChanged();
+            }
             activity.mSwipeRefreshLayout.setRefreshing(false);
-            mBooksJSONFetcher.parseResults(string);
-            activity.mBookResultsAdapter.setBooksResults(mBooksJSONFetcher.getBookResults());
-            activity.mBookResultsAdapter.notifyDataSetChanged();
         }
 
         @Override

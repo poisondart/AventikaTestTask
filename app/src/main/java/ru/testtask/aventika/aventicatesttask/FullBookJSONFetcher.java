@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class FullBookJSONFetcher implements JSONFetcher{
@@ -34,6 +35,7 @@ public class FullBookJSONFetcher implements JSONFetcher{
 
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("GET");
+            urlConnection.setConnectTimeout(5000);
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
@@ -50,6 +52,9 @@ public class FullBookJSONFetcher implements JSONFetcher{
                 return null;
             }
             bookJSONString = builder.toString();
+        }catch (SocketTimeoutException se){
+            se.printStackTrace();
+            return null;
         }catch (IOException e){
             e.printStackTrace();
         }finally {

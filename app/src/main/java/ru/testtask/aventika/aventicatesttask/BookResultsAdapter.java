@@ -23,6 +23,10 @@ public class BookResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mBookResults = bookResults;
     }
 
+    public void clearBooks(){
+        mBookResults.clear();
+    }
+
     @NonNull
     @Override
     public BookResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
