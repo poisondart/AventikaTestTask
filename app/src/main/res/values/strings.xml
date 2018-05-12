@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">AventicaTestTask</string>
     <string name="search">Search</string>
+    <string name="searchActivityTitle">Поиск книг</string>
 
-    <!--placeholders, not for translate-->
+    <!--Просто тестовые надписи-->
     <string name="title_pl">Leather from the Raw Material to the Finished Product</string>
     <string name="author_pl">Adcock K. J.</string>
     <string name="publisher_pl">Издатель: Random House Digital, Inc.</string>
-    <string name="publisherDate_pl">Дата издания: 2005-11-15</string>
+    <string name="publisherDate_pl">Дата издания: 2005&#8211;11&#8211;15</string>
     <string name="desc_pl">Here is the story behind one of the most remarkable Internet
     successes of our time. Based on scrupulous research and extraordinary access
     to Google.</string>
