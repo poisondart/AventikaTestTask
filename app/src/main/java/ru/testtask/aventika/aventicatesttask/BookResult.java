@@ -3,17 +3,17 @@ package ru.testtask.aventika.aventicatesttask;
 public class BookResult {
     private String mTitle;
     private String mAuthors;
-    private String mSmallThumnailLink;
+    private String mSmallThumbnailLink;
     private String mSelfLink;
 
     public BookResult(){
 
     }
 
-    public BookResult(String title, String authors, String smallThumnailLink, String selfLink) {
+    public BookResult(String title, String authors, String smallThumbnailLink, String selfLink) {
         mTitle = title;
         mAuthors = authors;
-        mSmallThumnailLink = smallThumnailLink;
+        mSmallThumbnailLink = smallThumbnailLink;
         mSelfLink = selfLink;
     }
 
@@ -33,12 +33,12 @@ public class BookResult {
         mAuthors = authors;
     }
 
-    public String getSmallThumnailLink() {
-        return mSmallThumnailLink;
+    public String getSmallThumbnailLink() {
+        return mSmallThumbnailLink;
     }
 
-    public void setSmallThumnailLink(String smallThumnailLink) {
-        mSmallThumnailLink = smallThumnailLink;
+    public void setSmallThumbnailLink(String smallThumbnailLink) {
+        mSmallThumbnailLink = smallThumbnailLink;
     }
 
     public String getSelfLink() {
@@ -48,4 +48,5 @@ public class BookResult {
     public void setSelfLink(String selfLink) {
         mSelfLink = selfLink;
     }
+
 }

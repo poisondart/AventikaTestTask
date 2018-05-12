@@ -24,10 +24,12 @@ public class DetailBookActivity extends AppCompatActivity {
     private TextView mTitleView, mAuthorView, mPublisherView, mPublishDateView,
     mDescView, mPageCountView, mCategory;
     private String mSelfQuery;
+    private String mFullThumbnailLink;
 
     public static final String TITLE = "aventika.title";
     public static final String AUTHORS = "aventika.authors";
     public static final String FULL_LINK = "aventika.fullLink";
+    public static final String FULL_THUMBNAIL_LINK = "aventika.fullLink";
 
     public static Intent newIntent(Context context, String title, String authors, String fullLink){
         Intent intent = new Intent(context, DetailBookActivity.class);
@@ -54,6 +56,11 @@ public class DetailBookActivity extends AppCompatActivity {
         mTitleView.setText(getIntent().getStringExtra(TITLE));
         mAuthorView.setText(getIntent().getStringExtra(AUTHORS));
         mSelfQuery = getIntent().getStringExtra(FULL_LINK);
+        mFullThumbnailLink = getIntent().getStringExtra(FULL_THUMBNAIL_LINK);
+
+        GlideApp.with(getApplicationContext())
+                .load(mFullThumbnailLink)
+                .into(mImageView);
 
         new FetchBookTask(mSelfQuery, DetailBookActivity.this).execute();
     }
@@ -87,13 +94,16 @@ public class DetailBookActivity extends AppCompatActivity {
                 String desc = null;
                 String pages = null;
                 String category = null;
+                String largeThumbnail = null;
                     JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
+                    JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
                     try {
                         publisher = volumeInfo.getString("publisher");
                         publishDate = volumeInfo.getString("publishedDate");
                         desc = volumeInfo.getString("description");
                         pages = volumeInfo.getString("pageCount");
                         category = volumeInfo.getString("categories");
+                        largeThumbnail = imageLinks.getString("medium");
                     } catch (Exception e){
                         e.printStackTrace();
                     }
@@ -103,6 +113,10 @@ public class DetailBookActivity extends AppCompatActivity {
                     activity.mDescView.setText(desc);
                     activity.mPageCountView.setText(activity.getString(R.string.pageCount, pages));
                     activity.mCategory.setText(activity.getString(R.string.category, category));
+
+                    GlideApp.with(activity)
+                            .load(largeThumbnail)
+                            .into(activity.mImageView);
 
             }catch (JSONException e){
                 e.printStackTrace();

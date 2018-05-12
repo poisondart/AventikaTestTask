@@ -66,7 +66,7 @@ public class BookResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mTitleView.setText(mBookResult.getTitle());
             mAuthorsView.setText(mBookResult.getAuthors());
             GlideApp.with(mTitleView.getContext())
-                    .load(mBookResult.getSmallThumnailLink())
+                    .load(mBookResult.getSmallThumbnailLink())
                     .into(mImageView);
         }
     }
