@@ -1,5 +1,6 @@
 package ru.testtask.aventika.aventicatesttask;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,7 +56,9 @@ public class BookResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View view) {
-            //open new details activity
+            Intent intent = DetailBookActivity.newIntent(view.getContext(),
+                    mBookResult.getTitle(), mBookResult.getAuthors(), mBookResult.getSelfLink());
+            view.getContext().startActivity(intent);
         }
 
         private void bindBook(BookResult bookResult){
