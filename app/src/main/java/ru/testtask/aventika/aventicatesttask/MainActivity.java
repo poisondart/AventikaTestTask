@@ -108,9 +108,8 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(string);
             MainActivity activity = mReference.get();
             activity.mSwipeRefreshLayout.setRefreshing(false);
-            ArrayList<BookResult> bookResults = mBooksJSONFetcher
-                    .getBookResults(string);
-            activity.mBookResultsAdapter.setBooksResults(bookResults);
+            mBooksJSONFetcher.parseResults(string);
+            activity.mBookResultsAdapter.setBooksResults(mBooksJSONFetcher.getBookResults());
             activity.mBookResultsAdapter.notifyDataSetChanged();
         }
 

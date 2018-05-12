@@ -12,13 +12,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class BooksJSONFetcher {
+public class BooksJSONFetcher implements JSONFetcher{
     private ArrayList<BookResult> mBookResults;
 
     public BooksJSONFetcher(){
         mBookResults = new ArrayList<>();
     }
 
+    public ArrayList<BookResult> getBookResults() {
+        return mBookResults;
+    }
+    @Override
     public String getJSON(String query){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -71,8 +75,8 @@ public class BooksJSONFetcher {
         }
         return bookJSONString;
     }
-
-    public ArrayList<BookResult> getBookResults(String jsonString) {
+    @Override
+    public void parseResults(String jsonString) {
         try{
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray itemsArray = jsonObject.getJSONArray("items");
@@ -105,6 +109,5 @@ public class BooksJSONFetcher {
         }catch (JSONException e){
             e.printStackTrace();
         }
-        return mBookResults;
     }
 }
