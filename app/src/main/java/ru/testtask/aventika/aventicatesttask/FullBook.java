@@ -1,8 +1,14 @@
 package ru.testtask.aventika.aventicatesttask;
 
+/*Класс модели для выведения более подробной информации о книге*/
+
 public class FullBook {
-    private String mPublisher,
-            mPublishDate, mDesc, mPageCount, mCategory, mImageLink;
+    private String mPublisher, //издатель книги
+            mPublishDate,  //дата издания книги
+            mDesc, //описание книги
+            mPageCount, //кол-во страниц
+            mCategory, //категория
+            mImageLink; //ссылка на большую картинку обожки книги
 
     public FullBook() {
     }

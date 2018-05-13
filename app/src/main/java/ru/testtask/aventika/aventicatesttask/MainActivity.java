@@ -20,6 +20,8 @@ import android.widget.Toast;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+/*Главная активность приложения, в ней происходит поиск книг*/
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*Метод для инициализации виджетов интерфейса*/
     private void initUI(){
         mToolbar = findViewById(R.id.toolbar_main);
         mToolbar.setTitle(R.string.searchActivityTitle);
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mBookResultsAdapter);
     }
 
+    /*Обработка событий виджета поиска*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_button, menu);
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        /*при повторном нажатии на кнопку удаления текста (крестик) происходит удаление результатов поиска*/
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
+    /*Метод для запуска службы поиска*/
     private void updateItems(String query){
         if(isOnline()){
             new FetchBookTask(query, MainActivity.this).execute();
@@ -106,14 +110,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+    /*Метод для проверки наличия подключения к интернету*/
     public boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
+    /*AsyncTask-класс для получения результатов поиска*/
     private static class FetchBookTask extends AsyncTask<Void, Void, String>{
         private String mQueryString;
         private WeakReference<MainActivity> mReference;

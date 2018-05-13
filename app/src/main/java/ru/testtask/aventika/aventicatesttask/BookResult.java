@@ -1,10 +1,12 @@
 package ru.testtask.aventika.aventicatesttask;
 
+/*Класс модели для результатов запроса на поиск книги*/
+
 public class BookResult {
-    private String mTitle;
-    private String mAuthors;
-    private String mSmallThumbnailLink;
-    private String mSelfLink;
+    private String mTitle; //название книги
+    private String mAuthors; // авторы книги
+    private String mSmallThumbnailLink; //ссылка на маленькую картинку обложки
+    private String mSelfLink; //ссылка на книгу
 
     public BookResult(){
 

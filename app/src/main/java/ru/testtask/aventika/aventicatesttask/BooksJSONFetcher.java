@@ -13,6 +13,8 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/*Класс, который отвечает за получение списка найденных книг по запросу*/
+
 public class BooksJSONFetcher implements JSONFetcher{
     private ArrayList<BookResult> mBookResults;
 
@@ -20,6 +22,7 @@ public class BooksJSONFetcher implements JSONFetcher{
         mBookResults = new ArrayList<>();
     }
 
+    /*Небольшой метод для преобразования json-массива в красивую строку*/
     public static String JSONArrayToString(JSONArray jsonArray) throws JSONException{
         StringBuilder builder = new StringBuilder();
         for(int a =  0; a < jsonArray.length(); a++){

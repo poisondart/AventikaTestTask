@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
+/*Вторая активность приложения, в ней происходит
+загрузка и просмотр дополнительной информации о книге*/
+
 public class DetailBookActivity extends AppCompatActivity {
 
     private ImageView mImageView;
@@ -28,6 +31,7 @@ public class DetailBookActivity extends AppCompatActivity {
     public static final String AUTHORS = "aventika.authors";
     public static final String FULL_LINK = "aventika.fullLink";
 
+    /*Метод для создания интента с нужными дополнениями в виде названия, авторов и полной ссылки*/
     public static Intent newIntent(Context context, String title, String authors, String fullLink){
         Intent intent = new Intent(context, DetailBookActivity.class);
         intent.putExtra(TITLE, title);
@@ -49,14 +53,14 @@ public class DetailBookActivity extends AppCompatActivity {
             new FetchBookTask(mSelfQuery, DetailBookActivity.this).execute();
         }
     }
-
+    /*Метод для проверки наличия подключения к интернету*/
     public boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
+    /*Метод для инициализации виджетов интерфейса*/
     private void initUI(){
         mImageView = findViewById(R.id.main_image);
         mProgressBar = findViewById(R.id.detail_progressbar);
@@ -68,14 +72,14 @@ public class DetailBookActivity extends AppCompatActivity {
         mPageCountView = findViewById(R.id.pageTextView);
         mCategory = findViewById(R.id.categoryView);
     }
-
+    /*Метод для инициализации виджетов названия и авторов книги с помощью дополнений*/
     private void initIntentViews(String t, String a){
         if(t != null) mTitleView.setText(t);
         else mTitleView.setText("???");
         if(a != null) mAuthorView.setText(a);
         else mAuthorView.setText("???");
     }
-
+    /*AsyncTask-класс для получения дополнительной информации о книге*/
     private static class FetchBookTask extends AsyncTask<Void, Void, String> {
         private String mQueryString;
         private WeakReference<DetailBookActivity> mReference;

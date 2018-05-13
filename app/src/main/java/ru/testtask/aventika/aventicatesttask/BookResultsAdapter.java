@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+/*Адаптер для списка полученных результатов запроса*/
+
 public class BookResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<BookResult> mBookResults;
@@ -60,6 +62,9 @@ public class BookResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View view) {
+            /*по клику на элемент списка вызываем
+            активити с дополненной информацией о книге, а также
+            передаём в активити часть уже полученной информации*/
             Intent intent = DetailBookActivity.newIntent(view.getContext(),
                     mBookResult.getTitle(), mBookResult.getAuthors(), mBookResult.getSelfLink());
             view.getContext().startActivity(intent);

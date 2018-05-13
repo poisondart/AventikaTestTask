@@ -13,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
+/*Класс, который отвечает за получение полной информации о книге по запросу*/
+
 public class FullBookJSONFetcher implements JSONFetcher{
     private FullBook mFullBook;
 
